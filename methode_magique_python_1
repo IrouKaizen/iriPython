@@ -1,0 +1,27 @@
+#Methode_magique
+
+class Voiture:
+    def __init__(self, prix, vit):
+        self.prix = prix
+        self.vit = vit
+
+    def __eq__(self, o):
+        return self.prix == o.prix
+
+    def __lt__(self, o):
+        return self.vit <= o.vit
+
+    def __str__(self) -> str:
+        return "Voiture {} {}".format(self.prix, self.vit)
+
+    def __bool__(self):
+        return self.prix > 1500
+
+v = Voiture(1000, 100)
+v2 = Voiture(2000, 200)
+
+v == v2
+
+print(v2) # Voiture 2000 200
+bool(v) # False
+bool(v2) #True
