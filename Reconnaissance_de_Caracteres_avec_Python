@@ -1,0 +1,21 @@
+import easyocr
+reader = easyocr.Reader(['fr']) 
+
+result = reader.readtext('img.png')
+print(result)
+
+
+from PIL import Image, ImageDraw
+image_pil = Image.open('img.png')
+draw = ImageDraw.Draw(image_pil)
+
+for (haut, droite, bas, gauche), mot, p in result:
+    print(haut, bas, mot)
+    draw.rectangle([haut[0], haut[1], bas[0], bas[1]], outline=(0, 0, 255))
+
+    largeur_texte, hauteur_texte = draw.textsize(mot)
+    draw.rectangle([haut[0], bas[1] - hauteur_texte - 10, bas[0], bas[1]], fill=(0, 0, 0))
+    draw.text((haut[0] + 6, bas[1] - hauteur_texte - 5), mot, fill=(255, 255, 255, 255))
+
+# Afficher l'image resultante
+image_pil.show()
